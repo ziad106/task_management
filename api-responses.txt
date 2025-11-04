@@ -22,3 +22,15 @@
    {
      "error": "Task not found"
    }
+   
+   4. GET /task/abc (Invalid ID Format)
+   Response (400):
+   {
+     "error": "Invalid ID format"
+   }
+
+5. Edge Case Tests:
+   - /task/999 → 404 (Task not found)
+   - /task/abc → 400 (Invalid ID format)
+   - /task/3 → 200 (Success)
+
