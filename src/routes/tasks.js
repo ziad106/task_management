@@ -1,37 +1,42 @@
 const express = require('express');
 const router = express.Router();
 
-// Sample tasks data
-const tasks = [
-  { id: 1, title: "Learn Node.js", completed: false, priority: "high", createdAt: new Date('2025-11-01') },
-  { id: 2, title: "Build REST API", completed: false, priority: "medium", createdAt: new Date('2025-11-02') },
-  { id: 3, title: "Study Express Router", completed: true, priority: "low", createdAt: new Date('2025-11-03') },
-  { id: 4, title: "Setup Git Repository", completed: true, priority: "medium", createdAt: new Date('2025-11-04') },
-  { id: 5, title: "Deploy to Production", completed: false, priority: "high", createdAt: new Date('2025-11-05') }
-];
-
-// GET /tasks - return all tasks
+// GET /tasks - Retrieve all tasks
 router.get('/', (req, res) => {
+  const tasks = req.app.locals.tasks;
   res.json(tasks);
 });
 
-// GET /task/:id - get a single task by ID
+// POST /tasks - Create a new task (optional, for future extensibility)
+router.post('/', (req, res) => {
+  const { title, priority = 'low' } = req.body;
+  if (!title || typeof title !== 'string' || title.trim().length === 0) {
+    return res.status(400).json({ error: 'Title is required and must be a non-empty string' });
+  }
+  const newTask = {
+    id: Date.now(),
+    title: title.trim(),
+    completed: false,
+    priority,
+    createdAt: new Date()
+  };
+  const tasks = req.app.locals.tasks;
+  tasks.push(newTask);
+  res.status(201).json(newTask);
+});
+
+// GET /task/:id - Get task by ID
 router.get('/:id', (req, res) => {
-    const taskId = parseInt(req.params.id);
-  
-    // Check if ID is a valid number
-    if (isNaN(taskId)) {
-      return res.status(400).json({ error: "Invalid ID format" });
-    }
-  
-    const task = tasks.find(t => t.id === taskId);
-  
-    if (!task) {
-      return res.status(404).json({ error: "Task not found" });
-    }
-  
-    res.json(task);
-  });
-  
+  const id = Number(req.params.id);
+  const tasks = req.app.locals.tasks;
+  if (isNaN(id)) {
+    return res.status(400).json({ error: "Invalid ID format" });
+  }
+  const task = tasks.find(t => t.id === id);
+  if (!task) {
+    return res.status(404).json({ error: "Task not found" });
+  }
+  res.json(task);
+});
 
 module.exports = router;

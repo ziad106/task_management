@@ -1,38 +1,15 @@
-[
-    {
-      "id": 1,
-      "title": "Learn Node.js",
-      "completed": false,
-      "priority": "high",
-      "createdAt": "2025-11-01T00:00:00.000Z"
-    },
-    {
-      "id": 2,
-      "title": "Build REST API",
-      "completed": false,
-      "priority": "medium",
-      "createdAt": "2025-11-02T00:00:00.000Z"
-    },
-    {
-      "id": 3,
-      "title": "Study Express Router",
-      "completed": true,
-      "priority": "low",
-      "createdAt": "2025-11-03T00:00:00.000Z"
-    },
-    {
-      "id": 4,
-      "title": "Setup Git Repository",
-      "completed": true,
-      "priority": "medium",
-      "createdAt": "2025-11-04T00:00:00.000Z"
-    },
-    {
-      "id": 5,
-      "title": "Deploy to Production",
-      "completed": false,
-      "priority": "high",
-      "createdAt": "2025-11-05T00:00:00.000Z"
-    }
-  ]
-  
+{
+    "success": true,
+    "data": [
+        {
+            "id": 1,
+            "title": "Sample Task",
+            "completed": false
+        },
+        {
+            "id": 1763364225169,
+            "title": "lab 2",
+            "completed": false
+        }
+    ]
+}
